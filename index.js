@@ -12,6 +12,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 
 connectDb();
@@ -22,6 +23,7 @@ app.get("/", (req,res)=>{
 
 
 app.use("/api/auth", require("./routes/userAuth"));
+app.use("/api/products", require("./routes/productRoutes"));
 
 app.listen(process.env.PORT || 5000, ()=>{
     console.log("hello from server")
