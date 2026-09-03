@@ -24,6 +24,7 @@ app.get("/", (req,res)=>{
 
 app.use("/api/auth", require("./routes/userAuth"));
 app.use("/api/products", require("./routes/productRoutes"));
+app.use("/api/orders", require("./routes/orderRoutes"));
 
 app.listen(process.env.PORT || 5000, ()=>{
     console.log("hello from server")
