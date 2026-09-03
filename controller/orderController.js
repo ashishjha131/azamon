@@ -25,9 +25,10 @@ const addOrderItems = async(req, res) => {
 }
 
 const getOrders = async(req, res)=> {
-  try{const order = await Order.find(req.user._id).populate("name", "email");
+  try{
+    const order = await Order.find({}).populate("user", "name email");
     console.log(order)
-  res.status(200).json(order);
+    res.status(200).json(order);
   }
   catch(error){
     return res.status(500).json({message: `Error ${error}`});
