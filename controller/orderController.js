@@ -35,4 +35,16 @@ const getOrders = async(req, res)=> {
   }
 }
 
-module.exports = {addOrderItems, getOrders};
+const getMyOrders = async(req, res)=> {
+  try{
+      console.log(req.user);
+      const currUser = req.user;
+      const order = await Order.find({user: currUser._id});
+      return res.status(200).json(order);
+  }
+  catch(error){
+    return res.status(500).json({message: `Error ${error}`});
+  }
+}
+
+module.exports = {addOrderItems, getOrders, getMyOrders};
