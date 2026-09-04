@@ -17,7 +17,9 @@ const orderSchema = new mongoose.Schema({
         state: {type: String, required: true},
         pincode: {type: Number, required: true}
     },
-    paymentId: {type: String},
+    razorpayOrderid: {type: String},
+    razorpayPaymentid: {type: String},
+    paymentStatus: {type: String, enum: ["pending", "paid", "failed"]},
     status: {type: String, enum: ["pending", "shipped", "delivered"], default: 'pending'}
 }, {timestamps: true})
 

@@ -1,11 +1,12 @@
 const Order = require('../model/order');
 const User = require('../model/User');
 const {sendEmail} = require('../utils/sendEmail');
+const razorpay = require("../config/razorpay");
 
 const addOrderItems = async(req, res) => {
   try{
-    const {products, total, address, paymentId} = req.body;
-  if(!products || !total || !address || !paymentId){
+    const {products, total, address} = req.body;
+  if(!products || !total || !address ){
     return res.status(400).json({message: "enter all the details"});
   }
   const order = await Order.create({
@@ -13,11 +14,20 @@ const addOrderItems = async(req, res) => {
     products,
     total,
     address,
-    paymentId,
+    paymentStatus: "pending",
   });
-  const user = await User.findById(req.user._id).select("email");
-  await sendEmail(user.email, "Order Placed", "congratulations! your order has been placed" );
-  res.status(200).json({message: "Order created successfully"});
+
+  const razorpayOrder = await razorpay.orders.create({
+    amount: order.total * 100,
+    currency: "INR"
+  });
+  order.razorpayOrderid = razorpayOrder.id;
+  await order.save();
+  res.status(200).json({key_id: razorpay.key_id,
+     razorpayOrderid: razorpayOrder.id,
+     amount: razorpayOrder.amount,
+     currency: razorpayOrder.currency
+  });
   }
   catch(error){
     return res.status(500).json({message: `Error ${error}`});
@@ -50,7 +60,10 @@ const getMyOrders = async(req, res)=> {
 const updateOrderStatus = async(req, res)=>{
   try{
     const order = await Order.findById(req.params.id);
-    if(!req.body) return res.status(400).json({message: "provide order status"});
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+  }
+    if(!req.body.status) return res.status(400).json({message: "provide order status"});
     order.status = req.body.status;
     await order.save();
     res.status(200).json({message: "order is shipped"});
