@@ -1,0 +1,42 @@
+.footer {
+  background-color: #000;
+  color: white;
+
+  padding: 30px 40px;
+
+  text-align: center;
+
+  margin-top: 50px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 35px;
+
+  margin-bottom: 20px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+
+  transition: 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #ff9900;
+}
+
+.footer-copyright {
+  color: #888;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+}
