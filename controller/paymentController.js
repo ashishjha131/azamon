@@ -118,4 +118,5 @@ const webhook = async (req, res) => {
         });
     }
 };
+
 module.exports = { verifyPayment, webhook };
