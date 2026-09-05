@@ -8,11 +8,19 @@ const genToken = async(id)=>{
     return jwt.sign({id}, process.env.Secret_key);
 }
 async function handleUserSignup(req, res){
-    const {name, email, password} = req.body;
+    try{
+        const {name, email, password} = req.body;
     console.log("BODY:", req.body);
+    if(!name || !email || !password) return res.status(400).json({
+        code: "1",
+        message: "Enter all the details"
+    })
+
     const existingUser = await User.findOne({email});
     if(existingUser){
-        res.status(400).json({message: "user already exist"});
+        return res.status(400).json({
+            code: "2",
+            message: "user already exist"});
     }
     const salt = await bcrypt.genSalt(10);
     const hashedPassword =  await bcrypt.hash(password, salt);
@@ -34,6 +42,10 @@ async function handleUserSignup(req, res){
             role: newUser.role,
             token: await genToken(newUser._id)
         });
+    }
+    }
+    catch(error){
+        return res.status(500).json({message:"server error", error});
     }
 
 

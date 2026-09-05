@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {handleUserSignup, handleUserLogin, handleGetUsers} = require("../controller/user");
 const {protect} = require("../middlewares/protect");
-const admin = require("../middlewares/admin");
+const {admin} = require("../middlewares/admin");
 
 console.log("handleGetUsers:", typeof handleGetUsers);
 console.log("protect:", typeof protect);
