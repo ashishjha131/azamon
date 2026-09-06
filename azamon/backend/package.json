@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ngrok/ngrok": "^1.7.0",
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.11.0",
     "cors": "^2.8.6",

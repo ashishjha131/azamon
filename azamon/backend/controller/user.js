@@ -31,10 +31,8 @@ async function handleUserSignup(req, res){
     if(newUser){
         const otp = Math.floor(100000 + Math.random() * 900000);
         const message = `${name} registered successfully
-        Welcome to azamon, an full felteched e-commerce temu amazon
-        your otp is ${otp}`;
-        await sendEmail(email, `Welcome to a disappointing e-commerce website,
-        hope you're dissatisfied`, message);
+        Welcome to azamon, an full felteched e-commerce temu amazon`;
+        await sendEmail(email, `WELCOME TO AZAMON`, message);
         res.status(201).json({
             _id: newUser._id,
             name: newUser.name,
