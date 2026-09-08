@@ -5,11 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
 import "../styles/navbar.css";
 function Navbar() {
-  const {isLoggedIn, logout} = useContext(AuthContext);
-  let user;
-  if(isLoggedIn){
-    user = JSON.parse(localStorage.getItem("user"));
-  }
+  const {isLoggedIn, user, logout} = useContext(AuthContext);
 
   return (
     <nav className="navbar">
@@ -23,9 +19,28 @@ function Navbar() {
     <span>Hi! {user?.name || "Guest"}</span>
 
   </div>
+{isLoggedIn && user?.role === "admin" ? (
 
-{!isLoggedIn ? (
-  <div className="navbar-right">
+                <div className="admin-navbar">
+                    <Link to="/admin/dashboard">Dashboard</Link>
+                    <Link to="/admin/products">Products</Link>
+                    <Link to="/admin/users">Users</Link>
+                    <Link to="/admin/orders">Orders</Link>
+
+                    <button onClick={logout}>
+                        Logout
+                    </button>
+                </div>):(
+isLoggedIn ? (
+  <div className="navbar-right-2">
+    <Link to="/myorders">My Orders</Link>
+    <Link to="/cart">Cart:(0)</Link>
+    <button onClick={logout}>
+    Logout 
+    </button>
+    </div>
+  ):  (
+    <div className="navbar-right">
 
     <Link to="/signup">Signup</Link>
 
@@ -33,19 +48,13 @@ function Navbar() {
 
     <Link to="/cart">Cart</Link>
 
-    <Link to="/admin/login">Admin Login</Link>
 
-  </div> ):  (
-  <div className="navbar-right-2">
-    <Link to="/myorders">My Orders</Link>
-    <Link to="/cart">Cart:(0)</Link>
-    <button onClick={logout}>
-    Logout 
-    </button>
-    </div>)}
+  </div>
+  ))}
 
 </nav>
   );
 }
 
 export default Navbar;
+ 

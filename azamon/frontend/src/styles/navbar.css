@@ -98,3 +98,39 @@
     color: #111;
 }
 
+.admin-navbar {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.admin-navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.admin-navbar a:hover {
+    color: #ff9900;
+}
+
+
+/* Admin logout button */
+
+.admin-navbar button {
+    border: none;
+    padding: 9px 16px;
+    border-radius: 5px;
+    background-color: #ff9900;
+    color: #111;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.admin-navbar button:hover {
+    background-color: #e68a00;
+}
+
+

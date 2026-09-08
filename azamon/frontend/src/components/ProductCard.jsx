@@ -1,7 +1,10 @@
 import React from "react";
 import "../styles/product.css"
+// import { CartContext } from "../context/CartContext";
+// import { useContext } from "react";
 
 const ProductCard = (props) => {
+    // const {addToCart, removeFromCart, clearCart} = useContext(CartContext);
     return (
         <div className="product-card">
 

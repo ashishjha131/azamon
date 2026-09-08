@@ -1,0 +1,165 @@
+.product-form-page {
+    min-height: calc(100vh - 70px);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 50px 20px;
+
+    background-color: #0f0f0f;
+}
+
+/* Form */
+
+.product-form {
+    width: 100%;
+    max-width: 600px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+
+    padding: 40px;
+
+    background-color: #181818;
+
+    border: 1px solid #292929;
+    border-radius: 12px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+    box-sizing: border-box;
+}
+
+/* Heading */
+
+.product-form h1 {
+    margin: 0 0 15px;
+
+    text-align: center;
+
+    color: #ff9900;
+
+    font-size: 30px;
+    font-weight: 700;
+}
+
+/* Inputs */
+
+.product-form input,
+.product-form textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    background-color: #101010;
+    color: white;
+
+    border: 1px solid #333;
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.product-form input {
+    height: 46px;
+}
+
+.product-form textarea {
+    min-height: 110px;
+
+    resize: vertical;
+
+    font-family: inherit;
+}
+
+/* Placeholder */
+
+.product-form input::placeholder,
+.product-form textarea::placeholder {
+    color: #888;
+}
+
+/* Focus */
+
+.product-form input:focus,
+.product-form textarea:focus {
+    border-color: #ff9900;
+
+    box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.12);
+}
+
+/* File Input */
+
+.product-form input[type="file"] {
+    height: auto;
+
+    padding: 10px;
+
+    color: #aaa;
+
+    cursor: pointer;
+}
+
+.product-form input[type="file"]::file-selector-button {
+    margin-right: 12px;
+
+    padding: 8px 14px;
+
+    background-color: #ff9900;
+    color: #111;
+
+    border: none;
+    border-radius: 5px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.product-form input[type="file"]::file-selector-button:hover {
+    background-color: #e68a00;
+}
+
+/* Submit */
+
+.product-form button {
+    margin-top: 10px;
+
+    padding: 13px;
+
+    background-color: #ff9900;
+    color: #111;
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.product-form button:hover {
+    background-color: #e68a00;
+
+    transform: translateY(-2px);
+}
+
+.product-form button:active {
+    transform: translateY(0);
+}
