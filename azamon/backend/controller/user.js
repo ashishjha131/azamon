@@ -38,7 +38,8 @@ async function handleUserSignup(req, res){
             name: newUser.name,
             email: newUser.email,
             role: newUser.role,
-            token: await genToken(newUser._id)
+            token: await genToken(newUser._id),
+            otp
         });
     }
     }
@@ -50,20 +51,26 @@ async function handleUserSignup(req, res){
 }
 
 async function handleUserLogin(req,res){
-    const {email, password} = req.body;
+    try{
+        const {email, password} = req.body;
+    if(!email || !password) return res.status(400).json({code: "1"});
     const user = await User.findOne({email});
     if(user){
     if(await bcrypt.compare(password, user.password)){
         res.status(200).json({
             _id: user._id,
+            name: user.name,
             email: user.email,
-            password: user.password,
             role: user.role,
             token: await genToken(user._id)
         })
-    }else{res.status(400).json({message: "Password doesn't match"})}}
+    }else{res.status(400).json({code: "2", message: "Password doesn't match"})}}
     else{
-        res.status(400).json({message: "User doesn't exist"})
+        res.status(400).json({code: "3", message: "User doesn't exist"})
+    }
+    }
+    catch(error){
+        return res.status(500).json({code: "4", message: {error}});
     }
 }
 

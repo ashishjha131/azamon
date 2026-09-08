@@ -1,12 +1,16 @@
 import React from "react";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import "../styles/signup.css";
 
 const Signup=()=>{
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
+    // const [otp, setOtp] = useState(0);
+    // const [step, setStep] = useState(1);
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
     console.log(name, email, password);
 
     async function handleSubmit(){
@@ -26,6 +30,9 @@ const Signup=()=>{
         const data = await response.json();
         if(response.status === 201){
             setMessage("User created successfully");
+            localStorage.setItem("token", data.token)
+            localStorage.setItem("user", JSON.stringify(data));
+            navigate("/login");
         }
         else if(response.status === 400){
             if(data.code === "1"){
@@ -46,15 +53,20 @@ const Signup=()=>{
             setMessage("unable to connect to server");
         }
    }
-   console.log(message);
 
+   console.log(message);
+//    async function submitOtp(){
+//     const response = await fetch("http://localhost:5000/api/auth/register",{
+        
+//     })
+//    }
         
 
     return(
         <>
             <div className="signup">
                 <h2>Create Account</h2>
-                <input placeholder="name" 
+                <input placeholder="Name" 
                  onChange={(e => setName(e.target.value))}></input>
 
                  <input placeholder="Email" type="email"
@@ -68,6 +80,11 @@ const Signup=()=>{
 
                  <p>{message}</p>
             </div>
+            {/* (<div>
+                <label>Enter otp</label>
+                <input onChange={(e)=>setOtp(e.target.value)}></input>
+                <button onClick={submitOtp}>Submit</button>
+            </div>) */}
         </>
     )
 }
