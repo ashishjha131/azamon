@@ -1,10 +1,29 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/adminProducts.css";
+import { useContext } from "react";
+import { ProductContext } from "../context/ProductContext";
 
 const AdminProducts = () => {
     const navigate = useNavigate();
+    const {products, deleteProduct, fetchProducts} = useContext(ProductContext);
+    console.log("PRODUCTS:", products);
 
+    async function handleDelete(productId){
+        const response = await fetch(`http://localhost:5000/api/products/${productId}`,{
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+        const data = await response.json();
+        if(response.status === 200){
+            console.log(data);
+            deleteProduct(productId);
+            fetchProducts();
+        }
+    }
+    
     return (
         <div className="admin-products-page">
 
@@ -19,7 +38,19 @@ const AdminProducts = () => {
             </div>
 
             <div className="admin-products">
-                
+                {products.map((e)=> (e &&
+                    <div key={e._id} className="admin-product">
+                        <img src={e.imageUrl} alt={e.name}/>            
+
+                        <h3>{e.name}</h3>
+
+                        <p>₹{e.price}</p>
+
+                        <p>Stock: {e.stock}</p>
+                        <button className="edit" onClick={()=>navigate(`/admin/products/edit/${e._id}`)}>Edit</button>
+                        <button className="delete" onClick={()=>handleDelete(e._id)}>Delete</button>
+                    </div>)
+                )}
             </div>
 
         </div>

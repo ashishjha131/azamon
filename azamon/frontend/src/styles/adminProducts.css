@@ -61,14 +61,118 @@
 .admin-products {
     width: 100%;
     max-width: 1100px;
-    min-height: 300px;
-
     margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 25px;
+
+    background-color: transparent;
+}
+
+
+.admin-product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 20px;
 
     background-color: #181818;
 
     border: 1px solid #292929;
     border-radius: 12px;
 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+
+    color: white;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.admin-product:hover {
+    transform: translateY(-5px);
+    border-color: #ff9900;
+}
+
+
+.admin-product img {
+    width: 180px;
+    height: 180px;
+
+    object-fit: contain;
+
+    margin-bottom: 15px;
+
+    border-radius: 8px;
+}
+
+
+.admin-product h3 {
+    margin: 5px 0 10px;
+
+    color: white;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    text-align: center;
+}
+
+
+.admin-product p {
+    margin: 5px 0;
+
+    color: #ccc;
+
+    font-size: 15px;
+}
+
+
+.admin-product p:nth-of-type(1) {
+    color: #ff9900;
+
+    font-size: 20px;
+    font-weight: 700;
+}
+
+
+.admin-product button {
+    width: 100px;
+
+    margin-top: 12px;
+    padding: 9px 15px;
+
+    border: none;
+    border-radius: 5px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.admin-product .edit {
+    background-color: #ff9900;
+    color: #111;
+}
+
+
+.admin-product .edit:hover {
+    background-color: #e68a00;
+}
+
+
+.admin-product .delete {
+    background-color: #d32f2f;
+    color: white;
+}
+
+
+.admin-product .delete:hover {
+    background-color: #b71c1c;
 }

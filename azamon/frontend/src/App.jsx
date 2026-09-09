@@ -8,6 +8,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./admin/Dashboard";
 import AdminProducts from "./admin/AdminProducts";
 import ProductForm from "./admin/ProductForm";
+import EditProucts from "./admin/EditProducts";
 
 import "./app.css";
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/admin/dashboard" element={<Dashboard/>} />
             <Route path="/admin/products" element={<AdminProducts/>} />
             <Route path="/admin/products/form" element={<ProductForm/>} />
+            <Route path="/admin/products/edit/:id" element={<EditProucts/>} />
           </Routes>
         </main>
 

@@ -68,10 +68,12 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
+    console.log("DELETE ROUTE HIT");
+    console.log("ID:", req.params.id);
     const product = await Product.findById(req.params.id);
     if (product) {
       await product.deleteOne();
-      res.json({ message: 'Product removed' });
+      res.status(200).json({ message: 'Product removed' });
     } else {
       res.status(404).json({ message: 'Product not found' });
     }

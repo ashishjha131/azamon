@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import "../styles/productForm.css";
-import { useContext } from "react";
+import React from "react";
+import {useState, useContext, useEffect} from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { ProductContext } from "../context/ProductContext";
-import { useNavigate } from "react-router-dom";
 
-function ProductForm() {
-    const {addProduct} = useContext(ProductContext);
+function EditProducts(){
+    const {fetchProducts} = useContext(ProductContext);
+    const {id} = useParams();
     const navigate = useNavigate();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -13,6 +13,34 @@ function ProductForm() {
     const [category, setCategory] = useState("");
     const [stock, setStock] = useState("");
     const [image, setImage] = useState(null);
+
+    async function fetchProduct(){
+        try{
+            const response = await fetch(`http://localhost:5000/api/products/${id}`,{
+            method: "GET",
+            headers:{
+                "Content-Type": "application/json"
+            }
+        });
+        const data = await response.json();
+        
+        if(response.status === 200){
+            console.log(data);
+            setName(data.name);
+            setDescription(data.description);
+            setPrice(data.price);
+            setCategory(data.category);
+            setStock(data.stock);
+        }
+    }
+    catch(error){
+        console.log("server error");
+    }
+        }
+    useEffect(()=>{
+        fetchProduct()
+    },[id])
+    
 
     function handleImageChange(e) {
         const file = e.target.files[0];
@@ -32,14 +60,17 @@ function ProductForm() {
         formData.append("price", price);
         formData.append("category", category);
         formData.append("stock", stock);
+        
+        if (image) {
         formData.append("image", image);
+    }
 
         try {
 
             const response = await fetch(
-                "http://localhost:5000/api/products/",
+                `http://localhost:5000/api/products/${id}`,
                 {
-                    method: "POST",
+                    method: "PUT",
 
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -50,9 +81,9 @@ function ProductForm() {
             );
 
             const data = await response.json();
-            if(response.status === 201){
+            if(response.status === 200){
                 console.log(data);
-                addProduct(data);
+                fetchProducts();
                 navigate("/admin/products")
             }
             
@@ -61,16 +92,16 @@ function ProductForm() {
             console.error(error);
         }
     }
-
-    return (
-        <div className="product-form-page">
+    return(
+        <>
+            <div className="product-form-page">
 
             <form
                 className="product-form"
                 onSubmit={handleSubmit}
             >
 
-                <h1>Create Product</h1>
+                <h1>Edit Product</h1>
 
                 <input
                     type="text"
@@ -113,13 +144,13 @@ function ProductForm() {
                 />
 
                 <button type="submit">
-                    Create Product
+                    Update Product
                 </button>
 
             </form>
 
         </div>
-    );
+        </>
+    )
 }
-
-export default ProductForm;
+export default EditProducts;
