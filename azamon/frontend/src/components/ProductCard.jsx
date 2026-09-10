@@ -1,35 +1,57 @@
 import React from "react";
-import "../styles/product.css"
-// import { CartContext } from "../context/CartContext";
-// import { useContext } from "react";
+import "../styles/product.css";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
-const ProductCard = (props) => {
-    // const {addToCart, removeFromCart, clearCart} = useContext(CartContext);
+const ProductCard = ({ product }) => {
+    const {
+        addToCart,
+        cartItems,
+        increaseQty,
+        decreaseQty
+    } = useContext(CartContext);
+
+    const cartProduct = cartItems.find(
+        (obj) => obj._id === product._id
+    );
+
     return (
         <div className="product-card">
+            <img src={product.imageUrl} alt={product.name} />
 
-            <img
-                className="image"
-                src={props.image}
-                alt={props.name}
-            />
+            <h3>{product.name}</h3>
+            <h4>{product.description}</h4>
+            <h4>₹{product.price}</h4>
+            <h4>Stock: {product.stock}</h4>
 
-            <h3 className="product-name">
-                {props.name}
-            </h3>
+            <footer>{product.category}</footer>
 
-            <p className="product-description">
-                {props.description}
-            </p>
+            {cartProduct ? (
+    <div className="quantity-controls">
+        <button
+            className="decrease-qty"
+            onClick={() => decreaseQty(product._id)}
+        >
+            -
+        </button>
 
-            <h3 className="product-price">
-                Rs. {props.price}
-            </h3>
+        <p>{cartProduct.qty} in cart</p>
 
-            <button className="add-to-cart">
-                Add to Cart
-            </button>
-
+        <button
+            className="increase-qty"
+            onClick={() => increaseQty(product._id)}
+        >
+            +
+        </button>
+    </div>
+) : (
+    <button
+        className="add-to-cart"
+        onClick={() => addToCart(product)}
+    >
+        Add to Cart
+    </button>
+)}
         </div>
     );
 };

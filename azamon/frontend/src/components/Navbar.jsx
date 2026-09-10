@@ -1,11 +1,17 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 import "../styles/navbar.css";
 function Navbar() {
   const {isLoggedIn, user, logout} = useContext(AuthContext);
+  const {cartItems} = useContext(CartContext);
+  const [cartQty, setCartQty] = useState(0);
+  useEffect(()=>{
+    setCartQty(cartItems.reduce((prevSum, obj)=> {return prevSum + obj.qty * 1}, 0));
+  },[cartItems]);
 
   return (
     <nav className="navbar">
@@ -34,7 +40,7 @@ function Navbar() {
 isLoggedIn ? (
   <div className="navbar-right-2">
     <Link to="/myorders">My Orders</Link>
-    <Link to="/cart">Cart:(0)</Link>
+    <Link to="/cart">Cart:({cartQty})</Link>
     <button onClick={logout}>
     Logout 
     </button>

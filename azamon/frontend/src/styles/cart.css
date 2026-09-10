@@ -1,0 +1,177 @@
+.cart {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 40px;
+
+    background-color: #000;
+    color: white;
+}
+
+
+/* CART ITEMS */
+
+.cart ol {
+    width: 800px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style-position: inside;
+}
+
+.cart li {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    background-color: #111;
+
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+}
+
+
+/* PRODUCT NAME */
+
+.cart .name {
+    width: 150px;
+
+    margin: 0;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    color: white;
+}
+
+
+/* PRODUCT PRICE */
+
+.cart .price {
+    width: 100px;
+
+    margin: 0;
+
+    font-size: 15px;
+
+    color: #aaa;
+}
+
+
+/* QUANTITY BUTTONS */
+
+.decrease-qty,
+.increase-qty {
+    width: 32px;
+    height: 32px;
+
+    border: none;
+    border-radius: 5px;
+
+    background-color: #ff9900;
+
+    color: #000;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease;
+}
+
+.decrease-qty:hover,
+.increase-qty:hover {
+    background-color: #ffb84d;
+}
+
+
+/* QUANTITY */
+
+.cart .qty {
+    width: 25px;
+
+    margin: 0;
+
+    text-align: center;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    color: white;
+}
+
+
+/* PRODUCT TOTAL */
+
+.cart .total-amt {
+    width: 120px;
+
+    margin: 0;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    color: white;
+}
+
+
+/* CLEAR CART */
+
+.clear-cart {
+    margin-left: auto;
+
+    padding: 8px 12px;
+
+    border: none;
+    border-radius: 5px;
+
+    background-color: #222;
+
+    color: #ff9900;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease;
+}
+
+.clear-cart:hover {
+    background-color: #333;
+}
+
+
+/* FINAL TOTAL */
+
+.final-total {
+    width: 800px;
+
+    padding: 20px;
+
+    margin: 10px 0 0 0;
+
+    text-align: right;
+
+    background-color: #111;
+
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    color: white;
+}

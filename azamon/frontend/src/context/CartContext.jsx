@@ -1,32 +1,77 @@
-// import { createContext, useState } from "react";
+import { createContext, useState } from "react";
 
-// export const CartContext = createContext();
+export const CartContext = createContext();
 
-// const CartProvider = ({children})=>{
+function CartProvider({ children }) {
 
-//     const [items, setItems] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
 
-//     function addToCart(product){
-//         setItems([...items, product]);
-//     }
-//     function increaseQty(productId){
+    function addToCart(product) {
 
-//         setQty();
-//     }
-//     function decreaseQty(productId){
-//         setQty(qty-1)
-//     }
-//     function removeFromCart(productId){
-//         setItems();
-//     }
-//     function clearCart(){
+        setCartItems((currItems) => {
 
-//     }
-//     return(
-//         <CartContext.Provider value={{items, addToCart, increaseQty,
-//          decreaseQty, removeFromCart, clearCart}}>
-//             {children}
-//         </CartContext.Provider>
-//     )
-// }
-// export default CartProvider;
+            const existingProduct = currItems.find(
+                (obj) => obj._id === product._id
+            );
+
+            if (existingProduct) {
+                return currItems.map((obj) =>
+                    obj._id === product._id
+                        ? { ...obj, qty: obj.qty + 1 }
+                        : obj
+                );
+            }
+
+            return [...currItems, { ...product, qty: 1 }];
+        });
+    }
+
+    function increaseQty(productId) {
+
+        setCartItems((currItems) =>
+            currItems.map((obj) =>
+                obj._id === productId
+                    ? { ...obj, qty: obj.qty + 1 }
+                    : obj
+            )
+        );
+    }
+
+    
+
+        function decreaseQty(productId) {
+    setCartItems((currItems) =>
+        currItems
+            .map((obj) =>
+                obj._id === productId
+                    ? { ...obj, qty: obj.qty - 1 }
+                    : obj
+            )
+            .filter((obj) => obj.qty > 0)
+    );
+}
+    
+
+    function clearCart(productId) {
+
+        setCartItems((currItems) =>
+            currItems.filter((obj) => obj._id !== productId)
+        );
+    }
+
+    return (
+        <CartContext.Provider
+            value={{
+                cartItems,
+                addToCart,
+                increaseQty,
+                decreaseQty,
+                clearCart
+            }}
+        >
+            {children}
+        </CartContext.Provider>
+    );
+}
+
+export default CartProvider;
