@@ -11,6 +11,7 @@ import EditProucts from "./admin/EditProducts";
 import Cart from "./pages/Cart";
 import Order from "./pages/Order";
 import Payment from "./pages/Payment";
+import MyOrders from "./pages/MyOrders";
 
 import "./app.css";
 
@@ -35,6 +36,7 @@ function App() {
             <Route path="/cart" element={<Cart/>} />
             <Route path="/cart/order" element={<Order/>} />
             <Route path="/cart/order/payment" element={<Payment/>} />
+            <Route path="/my-orders" element={<MyOrders/>} />
           </Routes>
         </main>
 

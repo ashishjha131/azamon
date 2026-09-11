@@ -16,35 +16,109 @@ const Order = ()=>{
     );
     
     async function confirmOrder(){
-        try{
-              const reqBody = {
-            products: cartItems.map((obj) => ({
-                productId: obj._id,
-                quantity: obj.qty,
-                price: obj.price
-            })),
-            total: totalAmt,
-            address: {
-                street,
-                state,
-                city,
-                pincode
+    try{
+        const reqBody = {
+            amount: totalAmt
+        };
+
+        const response = await fetch("http://localhost:5000/api/payment/create-order", {
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify(reqBody)
+        });
+
+        const data = await response.json();
+
+        console.log("Razorpay order:", data);
+
+        const options = {
+            key: data.key_id,
+
+            amount: data.amount,
+
+            currency: data.currency,
+
+            name: "Azamon",
+
+            description: "Azamon Order",
+
+            order_id: data.razorpayOrderId,
+
+            handler: async function(response){
+
+                console.log("Payment response:", response);
+
+                const verifyResponse = await fetch(
+                    "http://localhost:5000/api/payment/verify",
+                    {
+                        method: "POST",
+                        headers:{
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${localStorage.getItem("token")}`
+                        },
+                        body: JSON.stringify({
+                            razorpayOrderId: response.razorpay_order_id,
+                            razorpayPaymentId: response.razorpay_payment_id,
+                            razorpaySignature: response.razorpay_signature
+                        })
+                    }
+                );
+
+                const verifyData = await verifyResponse.json();
+
+                console.log("Verification:", verifyData);
+
+                if(verifyResponse.ok){
+
+                    const orderBody = {
+                        products: cartItems.map((obj) => ({
+                            productId: obj._id,
+                            quantity: obj.qty,
+                            price: obj.price
+                        })),
+                        total: totalAmt,
+                        address: {
+                            street,
+                            state,
+                            city,
+                            pincode
+                        }
+                    };
+
+                    const orderResponse = await fetch(
+                        "http://localhost:5000/api/orders",
+                        {
+                            method: "POST",
+                            headers:{
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${localStorage.getItem("token")}`
+                            },
+                            body: JSON.stringify(orderBody)
+                        }
+                    );
+
+                    const orderData = await orderResponse.json();
+
+                    console.log("Azamon order:", orderData);
+
+                    if(orderResponse.ok){
+                        navigate("/my-orders");
+                    }
+                }
             }
         };
-            const response = await fetch("http://localhost:5000/api/orders",{
-                method: "POST",
-                headers:{
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
-                },
-                body: JSON.stringify(reqBody)
-            })
-            const data = await response.json();
-            console.log(data);
-        }catch(error){
-                console.log(error);
-            }
+
+        const razorpay = new window.Razorpay(options);
+
+        razorpay.open();
+
+    }catch(error){
+        console.log(error);
     }
+}
 
     return(
         <>
@@ -65,7 +139,7 @@ const Order = ()=>{
                 <input placeholder="City" onChange={(e)=>setCity(e.target.value)}/>
                 <input placeholder="State" onChange={(e)=>setState(e.target.value)}/>
                 <input placeholder="Pincode" onChange={(e)=>setPincode(e.target.value)}/>
-                <button className="confirm-order" onClick={confirmOrder}>Confirm Order</button>
+                <button className="confirm-order" onClick={confirmOrder}>Proceed to pay</button>
             </div>
             
         </div>

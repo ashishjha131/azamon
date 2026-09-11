@@ -1,10 +1,18 @@
-const express = require("express");
-const cors = require("cors");
 const dotenv = require("dotenv");
-const {webhook} = require("./controller/paymentController");
 dotenv.config();
 console.log("EMAIL:", process.env.user_email);
 console.log("PASSWORD EXISTS:", !!process.env.user_pass);
+console.log("KEY ID:", process.env.RAZORPAY_KEY_ID);
+console.log("SECRET EXISTS:", !!process.env.RAZORPAY_KEY_SECRET);
+const express = require("express");
+const cors = require("cors");
+
+const {webhook} = require("./controller/paymentController");
+
+console.log("EMAIL:", process.env.user_email);
+console.log("PASSWORD EXISTS:", !!process.env.user_pass);
+console.log("KEY ID:", process.env.RAZORPAY_KEY_ID);
+console.log("SECRET EXISTS:", !!process.env.RAZORPAY_KEY_SECRET);
 const {connectDb} = require("./config/db")
 
 
@@ -46,7 +54,10 @@ console.log("paymentRoutes:", typeof paymentRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
+console.log("REGISTERING PAYMENT ROUTES");
+
 app.use("/api/payment", paymentRoutes);
+
 
 
 

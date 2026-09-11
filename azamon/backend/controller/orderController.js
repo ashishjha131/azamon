@@ -17,17 +17,7 @@ const addOrderItems = async(req, res) => {
     paymentStatus: "pending",
   });
 
-  const razorpayOrder = await razorpay.orders.create({
-    amount: order.total * 100,
-    currency: "INR"
-  });
-  order.razorpayOrderid = razorpayOrder.id;
-  await order.save();
-  res.status(200).json({key_id: razorpay.key_id,
-     razorpayOrderid: razorpayOrder.id,
-     amount: razorpayOrder.amount,
-     currency: razorpayOrder.currency
-  });
+  return res.status(201).json({order});
   }
   catch(error){
     return res.status(500).json({message: "Error"});

@@ -39,7 +39,7 @@ function Navbar() {
                 </div>):(
 isLoggedIn ? (
   <div className="navbar-right-2">
-    <Link to="/myorders">My Orders</Link>
+    <Link to="/my-orders">My Orders</Link>
     <Link to="/cart">Cart:({cartQty})</Link>
     <button onClick={logout}>
     Logout 
