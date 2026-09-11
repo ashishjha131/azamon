@@ -9,6 +9,8 @@ import AdminProducts from "./admin/AdminProducts";
 import ProductForm from "./admin/ProductForm";
 import EditProucts from "./admin/EditProducts";
 import Cart from "./pages/Cart";
+import Order from "./pages/Order";
+import Payment from "./pages/Payment";
 
 import "./app.css";
 
@@ -31,6 +33,8 @@ function App() {
             <Route path="/admin/products/form" element={<ProductForm/>} />
             <Route path="/admin/products/edit/:id" element={<EditProucts/>} />
             <Route path="/cart" element={<Cart/>} />
+            <Route path="/cart/order" element={<Order/>} />
+            <Route path="/cart/order/payment" element={<Payment/>} />
           </Routes>
         </main>
 

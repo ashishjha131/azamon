@@ -30,8 +30,7 @@ const Signup=()=>{
         const data = await response.json();
         if(response.status === 201){
             setMessage("User created successfully");
-            localStorage.setItem("token", data.token)
-            localStorage.setItem("user", JSON.stringify(data));
+            
             navigate("/login");
         }
         else if(response.status === 400){

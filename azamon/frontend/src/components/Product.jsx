@@ -17,7 +17,6 @@ const Product = (product) => {
                         <ProductCard key={e._id} product={e}/>
                     ))
                     ):
-                    
             <div>No products to display</div>
             }
 

@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 import "../styles/cart.css";
 const Cart = () => {
-
+    const navigate = useNavigate();
     const {
         cartItems,
         increaseQty,
@@ -59,16 +60,24 @@ const Cart = () => {
                                     className="clear-cart"
                                     onClick={() => clearCart(e._id)}
                                 >
-                                    Clear cart
+                                    Clear item
                                 </button>
 
                             </li>
                         ))}
                     </ol>
 
-                    <h3 className="final-total">
-                        Final Total: ₹{totalAmt}
-                    </h3>
+                   <div className="cart-bottom">
+    <h3 className="final-total">
+        Final Total: ₹{totalAmt}
+    </h3>
+
+    <button className="pay-btn" onClick={()=>{navigate("/cart/order");
+        console.log("hahah");
+    }}>
+        Order
+    </button>
+</div>
                 </>
 
             ) : (

@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const {sendEmail} = require("../utils/sendEmail");
 
 const genToken = async(id)=>{
-    return jwt.sign({id}, process.env.Secret_key);
+    return jwt.sign({id}, process.env.Secret_key,{expiresIn: '30d'});
 }
 async function handleUserSignup(req, res){
     try{
