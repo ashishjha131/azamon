@@ -28,9 +28,8 @@ const Signup=()=>{
             
         });
         const data = await response.json();
-        if(response.status === 201){
+        if(response.ok){
             setMessage("User created successfully");
-            
             navigate("/login");
         }
         else if(response.status === 400){
