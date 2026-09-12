@@ -5,7 +5,7 @@ function MyOrders(){
 
     async function fetchOrders(){
     try{
-        const response = await fetch("http://localhost:5000/api/orders/myorders",{
+        const response = await fetch("${import.meta.env.VITE_API_URL}/api/orders/myorders",{
         method: "GET",
         headers:{
             Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -30,7 +30,7 @@ function MyOrders(){
         <>
         <h3>Your orders</h3>
             <div className="my-orders">
-                {orders? (orders.map((obj)=>(
+                {orders.length>0 ? (orders.map((obj)=>(
                     <div key={obj._id}className="order-item">
                          <div>
                                 {obj.products.map((product) => (

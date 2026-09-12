@@ -21,7 +21,7 @@ const Order = ()=>{
             amount: totalAmt
         };
 
-        const response = await fetch("http://localhost:5000/api/payment/create-order", {
+        const response = await fetch("${import.meta.env.VITE_API_URL}/api/payment/create-order", {
             method: "POST",
             headers:{
                 "Content-Type": "application/json",
@@ -52,7 +52,7 @@ const Order = ()=>{
                 console.log("Payment response:", response);
 
                 const verifyResponse = await fetch(
-                    "http://localhost:5000/api/payment/verify",
+                    "${import.meta.env.VITE_API_URL}/api/payment/verify",
                     {
                         method: "POST",
                         headers:{
@@ -89,7 +89,7 @@ const Order = ()=>{
                     };
 
                     const orderResponse = await fetch(
-                        "http://localhost:5000/api/orders",
+                        "${import.meta.env.VITE_API_URL}/api/orders",
                         {
                             method: "POST",
                             headers:{

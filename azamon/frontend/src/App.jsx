@@ -13,7 +13,7 @@ import Order from "./pages/Order";
 import Payment from "./pages/Payment";
 import MyOrders from "./pages/MyOrders";
 
-import "./app.css";
+import "./App.css";
 
 
 

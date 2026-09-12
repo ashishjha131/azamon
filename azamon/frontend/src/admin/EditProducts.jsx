@@ -16,7 +16,7 @@ function EditProducts(){
 
     async function fetchProduct(){
         try{
-            const response = await fetch(`http://localhost:5000/api/products/${id}`,{
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/products/${id}`,{
             method: "GET",
             headers:{
                 "Content-Type": "application/json"
@@ -68,7 +68,7 @@ function EditProducts(){
         try {
 
             const response = await fetch(
-                `http://localhost:5000/api/products/${id}`,
+                `${import.meta.env.VITE_API_URL}/api/products/${id}`,
                 {
                     method: "PUT",
 
