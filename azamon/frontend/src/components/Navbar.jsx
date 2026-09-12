@@ -19,7 +19,7 @@ function Navbar() {
   <div className="navbar-left">
 
     <Link to="/">
-      <img src="../src/logo.png" alt="Azamon" />
+      <img src="/logo.png" alt="Azamon" />
     </Link>
 
     <span>Hi! {user?.name || "Guest"}</span>
