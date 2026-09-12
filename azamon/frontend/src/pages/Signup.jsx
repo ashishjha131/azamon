@@ -27,6 +27,8 @@ const Signup=()=>{
             })
             
         });
+        console.log("STATUS:", response.status);
+        console.log("OK:", response.ok);
         const data = await response.json();
         if(response.ok){
             setMessage("User created successfully");
