@@ -28,11 +28,11 @@ async function handleUserSignup(req, res){
         name, email, password: hashedPassword
     })
 
-    if(newUser){
-        const otp = Math.floor(100000 + Math.random() * 900000);
-        const message = `${name} registered successfully
-        Welcome to azamon, an full felteched e-commerce temu amazon`;
-        await sendEmail(email, `WELCOME TO AZAMON`, message);
+    // if(newUser){
+    //     const otp = Math.floor(100000 + Math.random() * 900000);
+    //     const message = `${name} registered successfully
+    //     Welcome to azamon, an full felteched e-commerce temu amazon`;
+    //     await sendEmail(email, `WELCOME TO AZAMON`, message);
         res.status(201).json({
             _id: newUser._id,
             name: newUser.name,
@@ -41,7 +41,7 @@ async function handleUserSignup(req, res){
             token: await genToken(newUser._id),
             otp
         });
-    }
+    
     }
     catch(error){
         return res.status(500).json({message:"server error", error});
