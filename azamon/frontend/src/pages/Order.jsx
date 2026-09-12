@@ -89,7 +89,7 @@ const Order = ()=>{
                     };
 
                     const orderResponse = await fetch(
-                        "${import.meta.env.VITE_API_URL}/api/orders",
+                        `${import.meta.env.VITE_API_URL}/api/orders`,
                         {
                             method: "POST",
                             headers:{
