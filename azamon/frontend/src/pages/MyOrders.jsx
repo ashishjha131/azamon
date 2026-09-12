@@ -31,23 +31,22 @@ function MyOrders(){
         <h3>Your orders</h3>
             <div className="my-orders">
                 {orders.length>0 ? (orders.map((obj)=>(
-                    <div key={obj._id}className="order-item">
-                         <div>
-                                {obj.products.map((product) => (
-                                    <div key={product.productId}>
-                                        <p>
-                                            Quantity: {product.quantity}
-                                        </p>
+                    <div key={obj._id} className="order-item">
+    <div>
+        {obj.products.map((product) => (
+            <div key={product.productId._id}>
+                <h3>{product.productId.name}</h3>
 
-                                        <p>
-                                            Price: ₹{product.price}
-                                        </p>
-                                    </div>
-                                ))}
-                            </div>
-                        <h3>₹{obj.total}</h3>
-                        <h3>order status: {obj.status}</h3>
-                    </div>
+                <p>Quantity: {product.quantity}</p>
+
+                <p>Price: ₹{product.price}</p>
+            </div>
+        ))}
+    </div>
+
+    <h3>₹{obj.total}</h3>
+    <h3>Order status: {obj.status}</h3>
+</div>
                 ))):(
                     <h1>You have no orders. </h1>
                 )}
