@@ -2,7 +2,7 @@ const express = require("express");
 const User = require("../model/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const {sendEmail} = require("../utils/sendEmail");
+// const {sendEmail} = require("../utils/sendEmail");
 
 const genToken = async(id)=>{
     return jwt.sign({id}, process.env.Secret_key,{expiresIn: '30d'});
@@ -39,7 +39,6 @@ async function handleUserSignup(req, res){
             email: newUser.email,
             role: newUser.role,
             token: await genToken(newUser._id),
-            otp
         });
     
     }
